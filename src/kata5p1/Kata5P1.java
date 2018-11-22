@@ -17,6 +17,7 @@ public class Kata5P1 {
         Kata5P1 kt = new Kata5P1();
         kt.connect(url);
         kt.selectAll("PEOPLE");
+        kt.createNewTable();
     }
     
     private Connection connect(String url) {
@@ -44,5 +45,18 @@ public class Kata5P1 {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    } 
+    }
+    
+    public void createNewTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS direcc_email (\n"
+        + " id integer PRIMARY KEY AUTOINCREMENT,\n"
+        + " direccion text NOT NULL);";
+        try (Statement stmt = conn.createStatement()) {
+            // Se crea la nueva tabla
+            stmt.execute(sql);
+            System.out.println("Tabla creada");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
